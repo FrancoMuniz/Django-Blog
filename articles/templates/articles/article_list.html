@@ -1,10 +1,30 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-{% for instance in object_list %}
-<p>{{ instance.id }} - <a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></p>
 
+{% for instance in object_list %}
+
+<div class="col-md-6">
+    <div class="jumbotron card card-block">
+        <h2>
+            <a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a>
+        </h2>
+        <p>
+            This is a template for a simple marketing or informational website. It includes a large
+            callout called the hero unit and three supporting pieces of content. Use it as a starting
+            point to create something more unique.
+        </p>
+        <p>
+            <a class="btn btn-primary btn-large" href="{{ instance.get_absolute_url }}">Read Article</a>
+        </p>
+    </div>
+</div>
 {% endfor %}
+
+
+
+
+
 
 {% endblock %}
