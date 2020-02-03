@@ -4,9 +4,21 @@
 
 <h1>{{ object.title }}</h1>
 <p>{{ object.content }}</p>
+<p>{{ object.publish_date }} </p>
+
 
 <form action="{% url 'articles:article-delete' object.id %}" method='POST'>{% csrf_token %}
-    <p><input type='submit' value='Delete Article'/> </p>
+    <p><input type='submit' value='Delete Article' /> </p>
 </form>
+
+<form class='comment' action="{% url 'articles:comment-create' object.id %}" method='POST'>{% csrf_token %}
+        {{ commentForm }}
+        <input type='submit' value='Post Comment' />
+    </form>
+    
+<h3> Comments: </h3>
+{% for instance in comments %}
+<p>{{ instance.content }} - {{ instance.publish_date}} </p>
+{% endfor %}
 
 {% endblock %}
