@@ -1,6 +1,6 @@
 # A blog made with Django ☕
 
-This is a project I built to explore the Django Framework.
+This is a project I built to explore and understand the Django Framework.
 
 Current features:
 
