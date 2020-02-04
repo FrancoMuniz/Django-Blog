@@ -7,6 +7,7 @@ Current features:
 - Create articles with title and content
 - Delete articles
 - Comment articles
+- List of articles - Individual articles
 - Login / Register
 
 TODO:
