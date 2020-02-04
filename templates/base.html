@@ -14,11 +14,13 @@
   <title> Tech Blog </title>
 
 
-  <link href="{% static "css/bootstrap.min.css" %}"" rel="stylesheet" >
+  <link href="{% static "css/bootstrap.min.css" %}"" rel=" stylesheet">
 
   <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css">
   <link href="{% static "css/blog.css" %}" rel="stylesheet" type="text/css">
   <link href="{% static "css/css" %}" rel="stylesheet">
+
+
 
 
 
@@ -30,7 +32,16 @@
     <header class="blog-header py-3">
       <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
-          <a class="text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Subscribe</a>
+          <a class="text-muted" href="/#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
+              <circle cx="10.5" cy="10.5" r="7.5"></circle>
+              <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
+            </svg>
+          </a>
+          {% if user.is_authenticated %}
+          <a class="btn btn-sm btn-outline-secondary" href="/create">Create Article</a>
+          {% endif %}
         </div>
         <div class="col-4 text-center">
           <a class="blog-header-logo text-dark" href="/">
@@ -41,31 +52,24 @@
           </a>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
-          <a class="text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
-              <circle cx="10.5" cy="10.5" r="7.5"></circle>
-              <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
-            </svg>
-          </a>
-          <a class="btn btn-sm btn-outline-secondary" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Sign
-            up</a>
+          {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method='POST'>{% csrf_token %}
+              <p><input type='submit' class="btn btn-sm btn-outline-secondary" value='Logout'/> </p>
+          </form>
+          {% else %}
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'signup' %}">Register</a>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'login' %}">Login</a>
+          {% endif %}
         </div>
       </div>
     </header>
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">World</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Technology</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Design</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Culture</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Business</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Politics</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Opinion</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Science</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Health</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Style</a>
-        <a class="p-2 text-muted" href="https://getbootstrap.com/docs/4.0/examples/blog/#">Travel</a>
+        <a class="p-2 text-muted" href="#">News</a>
+        <a class="p-2 text-muted" href="#">Startups</a>
+        <a class="p-2 text-muted" href="#">Apps</a>
+        <a class="p-2 text-muted" href="#">Gadgets</a>
+        <a class="p-2 text-muted" href="#">Videos</a>
       </nav>
     </div>
 
@@ -114,17 +118,16 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script> -->
 
   <script src="{% static "js/jquery-3.2.1.slim.min.js" %}"
-  
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 
-  
-  <script  src="{% static "js/popper.min.js" %}"> </script>
-  <script  src="{% static "js/bootstrap.min.js" %}"> </script>
-  <script  src="{% static "js/holder.min.js" %}"> </script>
-  
-  
+
+  <script src="{% static "js/popper.min.js" %}"> </script>
+  <script src="{% static "js/bootstrap.min.js" %}"> </script>
+  <script src="{% static "js/holder.min.js" %}"> </script>
+
+
   <script>
     Holder.addTheme('thumb', {
       bg: '#55595c',

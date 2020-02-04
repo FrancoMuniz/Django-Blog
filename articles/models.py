@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=96)
     content = models.TextField()
     publish_date = models.DateTimeField(default=datetime.now)
     #comments_amount = models.IntegerField(default=0)

@@ -1,10 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import *
 from django.views.generic.edit import FormMixin
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 from .forms import ArticleModelForm, CommentModelForm
 from .models import Article, Comment
+
+
+
 
 
 class ArticleListView(ListView):
@@ -13,8 +19,12 @@ class ArticleListView(ListView):
     queryset = Article.objects.all()
 
 
-
 class ArticleCreateView(CreateView):
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return super(ArticleCreateView, self).get(request, *args, **kwargs)
 
     template_name = 'articles/article_create.html'
     form_class = ArticleModelForm
@@ -23,6 +33,7 @@ class ArticleCreateView(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+
 class ArticleDeleteView(DeleteView):
 
     template_name = 'articles/article_detail.html'
@@ -30,13 +41,14 @@ class ArticleDeleteView(DeleteView):
     def get_object(self):
         id_ = self.kwargs.get('id')
         return get_object_or_404(Article, id=id_)
+
     def get_success_url(self):
         return reverse('articles:article-list')
+
 
 class ArticleDetailView(DetailView):
 
     template_name = 'articles/article_detail.html'
-
 
     def get_object(self):
         id_ = self.kwargs.get('id')
@@ -45,14 +57,12 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(article=self.object)
-        context['commentForm'] = CommentModelForm(initial={'article':self.object})
+        context['commentForm'] = CommentModelForm(
+            initial={'article': self.object})
         return context
 
-    
 
-        
 class CommentCreateView(CreateView):
-
 
     form_class = CommentModelForm
     template_name = 'articles/article_create.html'
@@ -67,5 +77,3 @@ class CommentCreateView(CreateView):
     def get_success_url(self):
         print('test 2')
         return reverse('articles:article-detail', kwargs={'id': self.kwargs['id']})
-
-  

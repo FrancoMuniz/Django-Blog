@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 <form method='POST'> {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Post Article' />
+    {{ form|crispy }}
+    <input type='submit' class='btn btn-success' value='Post Article' />
 </form>
 
 

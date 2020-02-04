@@ -17,4 +17,5 @@ urlpatterns = [
     path('create/', ArticleCreateView.as_view(), name='article-create'),
     path('<int:id>/delete/', ArticleDeleteView.as_view(), name='article-delete'),
     path('<int:id>/comment-create/', CommentCreateView.as_view(), name='comment-create'),
+    
 ]
