@@ -4,7 +4,9 @@ from django.views.generic import *
 from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.core.files import File
+from urllib import request
+import os
 
 from .forms import ArticleModelForm, CommentModelForm
 from .models import Article, Comment
@@ -31,6 +33,9 @@ class ArticleCreateView(CreateView):
     queryset = Article.objects.all()
 
     def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
         return super().form_valid(form)
 
 
@@ -39,6 +44,7 @@ class ArticleDeleteView(DeleteView):
     template_name = 'articles/article_detail.html'
 
     def get_object(self):
+
         id_ = self.kwargs.get('id')
         return get_object_or_404(Article, id=id_)
 
@@ -71,6 +77,7 @@ class CommentCreateView(CreateView):
         print('test 1')
         self.object = form.save(commit=False)
         self.object.article_id = self.kwargs['id']
+        self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
 

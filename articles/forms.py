@@ -10,6 +10,7 @@ class ArticleModelForm(forms.ModelForm):
         fields = [
             'title',
             'content',
+            'thumbnail_url',
         ]
 
 

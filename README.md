@@ -9,13 +9,12 @@ Current features:
 - Comment articles
 - List of articles - Individual articles
 - Login / Register
+- Thumbnails for Articles (URL only)
 
 TODO:
 
 - Search articles
-- Link articles & comments with users (creators)
 - User profile
 - Article categories
-- Article thumbnails
 - Rich Text content
 
